@@ -40,16 +40,17 @@ const booksData = [
     genre: "Fiction",
   },
 ];
+const PORT = process.env.PORT || 6000;
 const connectionHandler = async () => {
   try {
     await mongoose.connect(process.env.connectionStr);
     console.log("connected to Db");
-    app.listen(6000, () => console.log("server running on port 6000"));
   } catch (error) {
-    throw error;
+    console.error("Db connection faild:", error.message);
   }
 };
 connectionHandler();
+app.listen(PORT, () => console.log("server running on port", PORT));
 const Book_Upload = async () => {
   try {
     await BookModel.deleteMany();
